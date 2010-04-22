@@ -8,7 +8,8 @@ class openssl {
 
     file { "/etc/pki/tls/openssl.cnf":
         group	=> "root",
-        mode    => 640,
+        # Must be world readable; git reads this, for example.
+        mode    => "0644",
         owner   => "root",
         require => Package["openssl"],
         source  => "puppet:///modules/openssl/openssl.cnf",
