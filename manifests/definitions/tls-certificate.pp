@@ -28,24 +28,28 @@ define openssl::tls-certificate ($ensure="present", $key_source="", $cert_source
 
     if $key_source != "" {
         file {"/etc/pki/tls/private/${name}.key":
-            ensure  => $ensure,
-            mode    => "0600",
-            require => Package["openssl"],
-            selrole => "object_r",
-            seltype => "cert_t",
-            seluser => "system_u",
-            source  => $key_source,
+            ensure      => $ensure,
+            group       => "root",
+            mode        => "0600",
+            owner       => "root",
+            require     => Package["openssl"],
+            selrole     => "object_r",
+            seltype     => "cert_t",
+            seluser     => "system_u",
+            source      => $key_source,
         }
     }
 
     file {"/etc/pki/tls/certs/${name}.crt":
-        ensure  => $ensure,
-        mode    => "0644",
-        require => Package["openssl"],
-        selrole => "object_r",
-        seltype => "cert_t",
-        seluser => "system_u",
-        source  => $cert_source,
+        ensure          => $ensure,
+        group           => "root",
+        mode            => "0644",
+        owner           => "root",
+        require         => Package["openssl"],
+        selrole         => "object_r",
+        seltype         => "cert_t",
+        seluser         => "system_u",
+        source          => $cert_source,
     }
 
 }
