@@ -13,13 +13,12 @@ Requires:
 
 Example usage:
 
-    node "foo.example.com" {
-
     include openssl
 
     openssl::tls-certificate { "domain-smtp":
         key_source      => "puppet:///private/domain-smtp.key",
         cert_source     => "puppet:///private/domain-smtp.crt",
+        notify          => Service["httpd"],
     }
 
 */
