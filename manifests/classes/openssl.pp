@@ -1,4 +1,4 @@
-# /etc/puppet/modules/openssl/manifests/classes/openssl.pp
+# modules/openssl/manifests/classes/openssl.pp
 
 class openssl {
 
