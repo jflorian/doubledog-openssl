@@ -25,14 +25,16 @@
 #       }
 
 
-define openssl::tls-certificate ($ensure='present', $key_source='', $cert_source) {
+define openssl::tls-certificate ($ensure='present',
+                                 $owner='root', $group='root',
+                                 $key_source='', $cert_source) {
 
     if $key_source != '' {
         file { "/etc/pki/tls/private/${name}.key":
             ensure      => $ensure,
-            group       => 'root',
+            group       => $group,
             mode        => '0600',
-            owner       => 'root',
+            owner       => $owner,
             require     => Package['openssl'],
             selrole     => 'object_r',
             seltype     => 'cert_t',
@@ -43,9 +45,9 @@ define openssl::tls-certificate ($ensure='present', $key_source='', $cert_source
 
     file { "/etc/pki/tls/certs/${name}.crt":
         ensure          => $ensure,
-        group           => 'root',
+        group           => $group,
         mode            => '0644',
-        owner           => 'root',
+        owner           => $owner,
         require         => Package['openssl'],
         selrole         => 'object_r',
         seltype         => 'cert_t',
