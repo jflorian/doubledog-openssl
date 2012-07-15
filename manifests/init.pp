@@ -1,4 +1,4 @@
-# modules/openssl/manifests/classes/openssl.pp
+# modules/openssl/manifests/init.pp
 
 class openssl {
 
