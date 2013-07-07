@@ -2,15 +2,17 @@
 
 class openssl {
 
-    package { 'openssl':
-	ensure	=> installed,
+    include 'openssl::params'
+
+    package { $openssl::params::packages:
+        ensure  => installed,
     }
 
     file { '/etc/pki/tls/openssl.cnf':
-        group	=> 'root',
+        owner   => 'root',
+        group   => 'root',
         # Must be world readable; git reads this, for example.
         mode    => '0644',
-        owner   => 'root',
         require => Package['openssl'],
         source  => [
             'puppet:///private-host/openssl/openssl.cnf',
