@@ -1,7 +1,7 @@
 # modules/openssl/manifests/params.pp
 #
 # Synopsis:
-#       Parameters for the openssl puppet module.
+#       Parameters for the OpenSSL puppet module.
 
 
 class openssl::params {
@@ -16,7 +16,7 @@ class openssl::params {
         }
 
         default: {
-            fail ("The openssl module is not yet supported on ${operatingsystem}.")
+            fail ("The OpenSSL module is not yet supported on ${operatingsystem}.")
         }
 
     }
