@@ -34,6 +34,7 @@ define openssl::tls-ca-certificate (
     } else {
 
         file { "/etc/pki/ca-trust/source/anchors/${name}.crt":
+            ensure  => $ensure,
             owner   => 'root',
             group   => 'root',
             mode    => '0644',
