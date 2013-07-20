@@ -42,6 +42,15 @@ define openssl::tls-ca-certificate (
             notify  => Exec['update-ca-trust'],
         }
 
+        # Establish a link to our traditional location since many other
+        # services (e.g., openldap, sssd) expect it there.
+        #
+        # TODO: Abolish this once all hosts are Fedora >= 19 and all
+        # references to this location are actually using the above.
+        file { "/etc/pki/tls/certs/${name}.crt":
+            ensure  => link,
+            target  => "/etc/pki/ca-trust/source/anchors/${name}.crt",
+        }
     }
 
 }
