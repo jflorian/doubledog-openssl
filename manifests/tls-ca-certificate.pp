@@ -28,7 +28,7 @@ define openssl::tls-ca-certificate (
 
     if $operatingsystemrelease < 19 {
         # The certificate portion gets installed just like any other certificate.
-        openssl::tls-certificate { "${name}":
+        openssl::tls_certificate { "${name}":
             cert_source => "${cert_source}",
         }
     } else {

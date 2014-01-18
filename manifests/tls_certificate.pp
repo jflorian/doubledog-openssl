@@ -26,7 +26,7 @@
 #       Class['openssl']
 
 
-define openssl::tls-certificate ($ensure='present',
+define openssl::tls_certificate ($ensure='present',
                                  $owner='root', $group='root',
                                  $key_source='', $cert_source) {
 
