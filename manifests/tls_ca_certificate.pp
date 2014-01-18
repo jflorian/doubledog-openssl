@@ -1,4 +1,4 @@
-# modules/openssl/manifests/tls-ca-certificate.pp
+# modules/openssl/manifests/tls_ca_certificate.pp
 #
 # Synopsis:
 #       Installs a TLS Certificate Authority certificate for OpenSSL.

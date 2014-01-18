@@ -1,4 +1,4 @@
-# modules/openssl/manifests/tls-certificate.pp
+# modules/openssl/manifests/tls_certificate.pp
 #
 # Synopsis:
 #       Installs a TLS certificate (key and certificate files) for OpenSSL.
