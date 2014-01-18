@@ -20,7 +20,7 @@
 #       Class['openssl']
 
 
-define openssl::tls-ca-certificate (
+define openssl::tls_ca_certificate (
     $ensure='present',
     $owner='root', $group='root',
     $key_source='', $cert_source
