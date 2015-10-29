@@ -1,23 +1,35 @@
 # modules/openssl/manifests/init.pp
 #
-# Synopsis:
-#       Configures OpenSSL on a host.
+# == Class: openssl
 #
-# Parameters:
-#       Name__________  Notes_  Description___________________________
+# Manages OpenSSL on a host.
 #
+# === Parameters
+#
+# ==== Required
+#
+# ==== Optional
+#
+# === Authors
+#
+#   John Florian <jflorian@doubledog.org>
+#
+# === Copyright
+#
+# Copyright 2010-2015 John Florian
 
-class openssl {
 
-    include 'openssl::params'
+class openssl (
+    ) inherits ::openssl::params {
+
 
     package { $openssl::params::packages:
         ensure  => installed,
     }
 
-    # This is needed by modules/openssl/manifests/tls-ca-certificate.pp, but
-    # appears here to prevent duplicate declarations.  Plus it only need be
-    # run once for all CA certificates installed.
+    # This is needed by Define[openssl::tls_ca_certificate], but appears here
+    # to prevent duplicate declarations.  Plus it only need be run once for
+    # all CA certificates installed.
     exec { 'update-ca-trust':
         refreshonly => true,
     }

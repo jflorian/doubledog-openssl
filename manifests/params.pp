@@ -1,13 +1,23 @@
 # modules/openssl/manifests/params.pp
 #
-# Synopsis:
-#       Parameters for the OpenSSL puppet module.
+# == Class: openssl::params
+#
+# Parameters for the openssl puppet module.
+#
+# === Authors
+#
+#   John Florian <jflorian@doubledog.org>
+#
+# === Copyright
+#
+# Copyright 2010-2015 John Florian
 
 
 class openssl::params {
 
     case $::operatingsystem {
-        Fedora: {
+
+        'CentOS', 'Fedora': {
 
             $packages = [
                 'openssl',
@@ -16,7 +26,7 @@ class openssl::params {
         }
 
         default: {
-            fail ("The OpenSSL module is not yet supported on ${operatingsystem}.")
+            fail ("${title}: operating system '${::operatingsystem}' is not supported")
         }
 
     }

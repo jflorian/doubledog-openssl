@@ -1,59 +1,103 @@
 # modules/openssl/manifests/tls_certificate.pp
 #
-# Synopsis:
-#       Installs a TLS certificate (key and certificate files) for OpenSSL.
+# == Define: openssl::tls_ca_certificate
 #
-# Parameters:
-#       Name__________  Notes_  Description___________________________
+# Manages a TLS certificate and private key file pair for OpenSSL.
 #
-#       name                    instance name
+# === Parameters
 #
-#       ensure          1       instance is to be present/absent
+# ==== Required
 #
-#       key_source      2       URI of private certificate key file
+# [*namevar*]
+#   An arbitrary identifier for the TLS certificate/key pair instance unless
+#   the "cert_name" parameter is not set in which case this must provide the
+#   value normally set with the "cert_name" parameter.
 #
-#       cert_source             URI of public certificate file
+# ==== Optional
 #
-# Notes:
+# [*ensure*]
+#   Instance is to be 'present' (default) or 'absent'.
 #
-#       1. Default is 'present'.
+# [*cert_name*]
+#   This may be used in place of "namevar" if it's beneficial to give namevar
+#   an arbitrary value.  If given, this equally affects the private key file.
 #
-#       2. Default is '', which indicates that the private key file is not to
-#       be installed.  Useful if only the public certificate portion is to be
-#       installed.
+# [*cert_content*]
+#   Literal content for the TLS certificate file.  If neither "cert_content"
+#   nor "cert_source" is given, the content of the file will be left
+#   unmanaged.
 #
-# Requires:
-#       Class['openssl']
+# [*cert_source*]
+#   URI of the TLS certificate file content.  See "cert_content" for other
+#   important details.
+#
+# [*key_content*]
+#   Literal content for the TLS private key file.  One of "key_content"
+#   or "key_source" must be given if the private key file is to exist.  If
+#   neither are set, any existing file will be removed.
+#
+# [*key_source*]
+#   URI of the TLS private key file content.  See "key_content" for other
+#   important details.
+#
+# === Authors
+#
+#   John Florian <jflorian@doubledog.org>
+#
+# === Copyright
+#
+# Copyright 2010-2015 John Florian
 
 
-define openssl::tls_certificate ($ensure='present',
-                                 $owner='root', $group='root',
-                                 $key_source='', $cert_source) {
+define openssl::tls_certificate (
+        $ensure='present',
+        $owner='root',
+        $group='root',
+        $cert_name=undef,
+        $cert_content=undef,
+        $cert_source=undef,
+        $key_content=undef,
+        $key_source=undef,
+    ) {
 
-    if $key_source != '' {
-        file { "/etc/pki/tls/private/${name}.key":
-            ensure  => $ensure,
-            group   => $group,
-            mode    => '0400',
-            owner   => $owner,
-            require => Package['openssl'],
-            selrole => 'object_r',
-            seltype => 'cert_t',
-            seluser => 'system_u',
-            source  => $key_source,
-        }
+    include '::openssl::params'
+
+    if $cert_name {
+        $cert_name_ = $cert_name
+    } else {
+        $cert_name_ = $name
     }
 
-    file { "/etc/pki/tls/certs/${name}.crt":
-        ensure  => $ensure,
-        group   => $group,
-        mode    => '0444',
-        owner   => $owner,
-        require => Package['openssl'],
-        selrole => 'object_r',
-        seltype => 'cert_t',
-        seluser => 'system_u',
-        source  => $cert_source,
+    file { "/etc/pki/tls/certs/${cert_name_}.crt":
+        ensure    => $ensure,
+        owner     => $owner,
+        group     => $group,
+        mode      => '0444',
+        seluser   => 'system_u',
+        selrole   => 'object_r',
+        seltype   => 'cert_t',
+        subscribe => Package[$::openssl::params::packages],
+        content   => $cert_content,
+        source    => $cert_source,
+    }
+
+    if $key_content != undef or $key_source != undef {
+        file { "/etc/pki/tls/private/${name}.key":
+            ensure    => $ensure,
+            owner     => $owner,
+            group     => $group,
+            mode      => '0400',
+            seluser   => 'system_u',
+            selrole   => 'object_r',
+            seltype   => 'cert_t',
+            subscribe => Package[$::openssl::params::packages],
+            content   => $key_content,
+            source    => $key_source,
+        }
+    } else {
+        file { "/etc/pki/tls/private/${name}.key":
+            ensure    => absent,
+        }
     }
 
 }
