@@ -71,8 +71,12 @@ define openssl::tls_ca_certificate (
 
     # Establish a link to the traditional location since many other services
     # (e.g., openldap, sssd) expect it there.
+    $link_ensure = $ensure ? {
+        'absent' => 'absent',
+        default  => link,
+    }
     file { "/etc/pki/tls/certs/${cert_name_}.crt":
-        ensure => link,
+        ensure => $link_ensure,
         target => "/etc/pki/ca-trust/source/anchors/${cert_name_}.crt",
     }
 
