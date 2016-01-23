@@ -19,8 +19,9 @@
 #   Instance is to be 'present' (default) or 'absent'.
 #
 # [*cert_name*]
-#   This may be used in place of "namevar" if it's beneficial to give namevar
-#   an arbitrary value.
+#   Name to be given to the TLS CA certificate file, without any path details
+#   or file euffixes (e.g., ".crt").  This may be used in place of "namevar"
+#   if it's beneficial to give namevar an arbitrary value.
 #
 # [*cert_content*]
 #   Literal content for the TLS CA certificate file.  If neither
@@ -42,20 +43,14 @@
 
 define openssl::tls_ca_certificate (
         $ensure='present',
-        $cert_name=undef,
+        $cert_name=$title,
         $cert_content=undef,
         $cert_source=undef,
     ) {
 
     include '::openssl::params'
 
-    if $cert_name {
-        $cert_name_ = $cert_name
-    } else {
-        $cert_name_ = $name
-    }
-
-    file { "/etc/pki/ca-trust/source/anchors/${cert_name_}.crt":
+    file { "/etc/pki/ca-trust/source/anchors/${cert_name}.crt":
         ensure    => $ensure,
         owner     => 'root',
         group     => 'root',
@@ -75,9 +70,9 @@ define openssl::tls_ca_certificate (
         'absent' => 'absent',
         default  => link,
     }
-    file { "/etc/pki/tls/certs/${cert_name_}.crt":
+    file { "/etc/pki/tls/certs/${cert_name}.crt":
         ensure => $link_ensure,
-        target => "/etc/pki/ca-trust/source/anchors/${cert_name_}.crt",
+        target => "/etc/pki/ca-trust/source/anchors/${cert_name}.crt",
     }
 
 }

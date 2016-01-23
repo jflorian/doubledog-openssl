@@ -19,8 +19,11 @@
 #   Instance is to be 'present' (default) or 'absent'.
 #
 # [*cert_name*]
-#   This may be used in place of "namevar" if it's beneficial to give namevar
-#   an arbitrary value.  If given, this equally affects the private key file.
+#   The base name to be given to the TLS certificate and private key file
+#   pair, without any path details or file euffixes (e.g., ".crt", ".key",
+#   etc.).  This may be used in place of "namevar" if it's beneficial to give
+#   namevar an arbitrary value.  If given, this equally affects the private
+#   key file.
 #
 # [*cert_content*]
 #   Literal content for the TLS certificate file.  If neither "cert_content"
@@ -53,7 +56,7 @@ define openssl::tls_certificate (
         $ensure='present',
         $owner='root',
         $group='root',
-        $cert_name=undef,
+        $cert_name=$title,
         $cert_content=undef,
         $cert_source=undef,
         $key_content=undef,
@@ -62,13 +65,7 @@ define openssl::tls_certificate (
 
     include '::openssl::params'
 
-    if $cert_name {
-        $cert_name_ = $cert_name
-    } else {
-        $cert_name_ = $name
-    }
-
-    file { "/etc/pki/tls/certs/${cert_name_}.crt":
+    file { "/etc/pki/tls/certs/${cert_name}.crt":
         ensure    => $ensure,
         owner     => $owner,
         group     => $group,
