@@ -63,6 +63,7 @@ define openssl::tls_certificate (
         $key_source=undef,
     ) {
 
+    include '::openssl'
     include '::openssl::params'
 
     file { "/etc/pki/tls/certs/${cert_name}.crt":

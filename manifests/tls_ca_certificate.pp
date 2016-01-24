@@ -48,6 +48,7 @@ define openssl::tls_ca_certificate (
         $cert_source=undef,
     ) {
 
+    include '::openssl'
     include '::openssl::params'
 
     file { "/etc/pki/ca-trust/source/anchors/${cert_name}.crt":
