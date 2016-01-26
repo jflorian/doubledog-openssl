@@ -46,6 +46,10 @@
 #   or "key_source" must be given if the private key file is to exist.  If
 #   neither are set, any existing file will be removed.
 #
+# [*key_path*]
+#   File system path to where the private key file is to be deployed.
+#   Defaults to '/etc/pki/tls/private'.
+#
 # [*key_source*]
 #   URI of the TLS private key file content.  See "key_content" for other
 #   important details.
@@ -70,6 +74,7 @@ define openssl::tls_certificate (
         $cert_source=undef,
         $group='root',
         $key_content=undef,
+        $key_path='/etc/pki/tls/private',
         $key_source=undef,
         $owner='root',
     ) {
@@ -91,7 +96,7 @@ define openssl::tls_certificate (
     }
 
     if $key_content != undef or $key_source != undef {
-        file { "/etc/pki/tls/private/${name}.key":
+        file { "${key_path}/${name}.key":
             ensure    => $ensure,
             owner     => $owner,
             group     => $group,
@@ -104,7 +109,7 @@ define openssl::tls_certificate (
             source    => $key_source,
         }
     } else {
-        file { "/etc/pki/tls/private/${name}.key":
+        file { "${key_path}/${name}.key":
             ensure    => absent,
         }
     }
