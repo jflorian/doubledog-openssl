@@ -51,18 +51,12 @@ define openssl::tls_ca_certificate (
     include '::openssl'
     include '::openssl::params'
 
-    file { "/etc/pki/ca-trust/source/anchors/${cert_name}.crt":
-        ensure    => $ensure,
-        owner     => 'root',
-        group     => 'root',
-        mode      => '0644',
-        seluser   => 'system_u',
-        selrole   => 'object_r',
-        seltype   => 'cert_t',
-        notify    => Exec['update-ca-trust'],
-        subscribe => Package[$::openssl::params::packages],
-        content   => $cert_content,
-        source    => $cert_source,
+    ::openssl::tls_certificate { $cert_name:
+        ensure       => $ensure,
+        cert_path    => '/etc/pki/ca-trust/source/anchors',
+        cert_content => $cert_content,
+        cert_source  => $cert_source,
+        notify       => Exec['update-ca-trust'],
     }
 
     # Establish a link to the traditional location since many other services
