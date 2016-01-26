@@ -18,15 +18,15 @@
 # [*ensure*]
 #   Instance is to be 'present' (default) or 'absent'.
 #
-# [*cert_name*]
-#   Name to be given to the TLS CA certificate file, without any path details
-#   or file euffixes (e.g., ".crt").  This may be used in place of "namevar"
-#   if it's beneficial to give namevar an arbitrary value.
-#
 # [*cert_content*]
 #   Literal content for the TLS CA certificate file.  If neither
 #   "cert_content" nor "cert_source" is given, the content of the file will be
 #   left unmanaged.
+#
+# [*cert_name*]
+#   Name to be given to the TLS CA certificate file, without any path details
+#   or file euffixes (e.g., ".crt").  This may be used in place of "namevar"
+#   if it's beneficial to give namevar an arbitrary value.
 #
 # [*cert_source*]
 #   URI of the TLS CA certificate file content.  See "cert_content" for other
@@ -43,8 +43,8 @@
 
 define openssl::tls_ca_certificate (
         $ensure='present',
-        $cert_name=$title,
         $cert_content=undef,
+        $cert_name=$title,
         $cert_source=undef,
     ) {
 

@@ -18,21 +18,24 @@
 # [*ensure*]
 #   Instance is to be 'present' (default) or 'absent'.
 #
-# [*cert_name*]
-#   The base name to be given to the TLS certificate and private key file
-#   pair, without any path details or file euffixes (e.g., ".crt", ".key",
-#   etc.).  This may be used in place of "namevar" if it's beneficial to give
-#   namevar an arbitrary value.  If given, this equally affects the private
-#   key file.
-#
 # [*cert_content*]
 #   Literal content for the TLS certificate file.  If neither "cert_content"
 #   nor "cert_source" is given, the content of the file will be left
 #   unmanaged.
 #
+# [*cert_name*]
+#   The base name to be given to the TLS certificate and private key file
+#   pair, without any path details or file suffixes (e.g., ".crt", ".key",
+#   etc.).  This may be used in place of "namevar" if it's beneficial to give
+#   namevar an arbitrary value.  If given, this equally affects the private
+#   key file.
+#
 # [*cert_source*]
 #   URI of the TLS certificate file content.  See "cert_content" for other
 #   important details.
+#
+# [*group*]
+#   Group that is to own the certificate and key files.  Defaults to 'root'.
 #
 # [*key_content*]
 #   Literal content for the TLS private key file.  One of "key_content"
@@ -42,6 +45,9 @@
 # [*key_source*]
 #   URI of the TLS private key file content.  See "key_content" for other
 #   important details.
+#
+# [*owner*]
+#   User that is to own the certificate and key files.  Defaults to 'root'.
 #
 # === Authors
 #
@@ -54,13 +60,13 @@
 
 define openssl::tls_certificate (
         $ensure='present',
-        $owner='root',
-        $group='root',
-        $cert_name=$title,
         $cert_content=undef,
+        $cert_name=$title,
         $cert_source=undef,
+        $group='root',
         $key_content=undef,
         $key_source=undef,
+        $owner='root',
     ) {
 
     include '::openssl'
