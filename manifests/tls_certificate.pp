@@ -30,6 +30,10 @@
 #   namevar an arbitrary value.  If given, this equally affects the private
 #   key file.
 #
+# [*cert_path*]
+#   File system path to where the certificate file is to be deployed.
+#   Defaults to '/etc/pki/tls/certs'.
+#
 # [*cert_source*]
 #   URI of the TLS certificate file content.  See "cert_content" for other
 #   important details.
@@ -62,6 +66,7 @@ define openssl::tls_certificate (
         $ensure='present',
         $cert_content=undef,
         $cert_name=$title,
+        $cert_path='/etc/pki/tls/certs',
         $cert_source=undef,
         $group='root',
         $key_content=undef,
@@ -72,7 +77,7 @@ define openssl::tls_certificate (
     include '::openssl'
     include '::openssl::params'
 
-    file { "/etc/pki/tls/certs/${cert_name}.crt":
+    file { "${cert_path}/${cert_name}.crt":
         ensure    => $ensure,
         owner     => $owner,
         group     => $group,
