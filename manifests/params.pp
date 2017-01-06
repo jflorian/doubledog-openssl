@@ -2,7 +2,7 @@
 #
 # == Class: openssl::params
 #
-# Parameters for the openssl puppet module.
+# Parameters for the openssl Puppet module.
 #
 # === Authors
 #
@@ -10,7 +10,7 @@
 #
 # === Copyright
 #
-# Copyright 2010-2016 John Florian
+# Copyright 2010-2017 John Florian
 
 
 class openssl::params {

@@ -2,7 +2,7 @@
 #
 # == Class: openssl
 #
-# Manages OpenSSL on a host.
+# Manages OpenSSL.
 #
 # === Parameters
 #
@@ -16,7 +16,7 @@
 #
 # === Copyright
 #
-# Copyright 2010-2016 John Florian
+# Copyright 2010-2017 John Florian
 
 
 class openssl (

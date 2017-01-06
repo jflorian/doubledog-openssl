@@ -38,7 +38,7 @@
 #
 # === Copyright
 #
-# Copyright 2010-2016 John Florian
+# Copyright 2010-2017 John Florian
 
 
 define openssl::tls_ca_certificate (
