@@ -23,8 +23,8 @@ class openssl (
     ) inherits ::openssl::params {
 
 
-    package { $openssl::params::packages:
-        ensure  => installed,
+    package { $::openssl::params::packages:
+        ensure => installed,
     }
 
     # This is needed by Define[openssl::tls_ca_certificate], but appears here
