@@ -16,7 +16,9 @@
 # ==== Optional
 #
 # [*ensure*]
-#   Instance is to be 'present' (default) or 'absent'.
+#   Instance is to be 'present' (default) or 'absent'.  Alternatively,
+#   a Boolean value may also be used with true equivalent to 'present' and
+#   false equivalent to 'absent'.
 #
 # [*cert_content*]
 #   Literal content for the TLS certificate file.  If neither "cert_content"
@@ -67,16 +69,16 @@
 
 
 define openssl::tls_certificate (
-        $ensure='present',
-        $cert_content=undef,
-        $cert_name=$title,
-        $cert_path='/etc/pki/tls/certs',
-        $cert_source=undef,
-        $group='root',
-        $key_content=undef,
-        $key_path='/etc/pki/tls/private',
-        $key_source=undef,
-        $owner='root',
+        Variant[Boolean, Enum['present', 'absent']] $ensure='present',
+        Optional[String[1]] $cert_content=undef,
+        String[1] $cert_name=$title,
+        String[1] $cert_path='/etc/pki/tls/certs',
+        Optional[String[1]] $cert_source=undef,
+        String[1] $group='root',
+        Optional[String[1]] $key_content=undef,
+        String[1] $key_path='/etc/pki/tls/private',
+        Optional[String[1]] $key_source=undef,
+        String[1] $owner='root',
     ) {
 
     include '::openssl'
@@ -111,7 +113,7 @@ define openssl::tls_certificate (
         }
     } else {
         file { "${key_path}/${name}.key":
-            ensure    => absent,
+            ensure => absent,
         }
     }
 
