@@ -107,6 +107,7 @@ define openssl::tls_certificate (
             subscribe => Package[$::openssl::params::packages],
             content   => $key_content,
             source    => $key_source,
+            show_diff => false,
         }
     } else {
         file { "${key_path}/${name}.key":
