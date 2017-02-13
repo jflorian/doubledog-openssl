@@ -82,7 +82,6 @@ define openssl::tls_certificate (
     ) {
 
     include '::openssl'
-    include '::openssl::params'
 
     file { "${cert_path}/${cert_name}.crt":
         ensure    => $ensure,
@@ -92,7 +91,7 @@ define openssl::tls_certificate (
         seluser   => 'system_u',
         selrole   => 'object_r',
         seltype   => 'cert_t',
-        subscribe => Package[$::openssl::params::packages],
+        subscribe => Package[$::openssl::packages],
         content   => $cert_content,
         source    => $cert_source,
     }
@@ -106,7 +105,7 @@ define openssl::tls_certificate (
             seluser   => 'system_u',
             selrole   => 'object_r',
             seltype   => 'cert_t',
-            subscribe => Package[$::openssl::params::packages],
+            subscribe => Package[$::openssl::packages],
             content   => $key_content,
             source    => $key_source,
             show_diff => false,

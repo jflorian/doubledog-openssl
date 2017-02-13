@@ -51,7 +51,6 @@ define openssl::tls_ca_certificate (
     ) {
 
     include '::openssl'
-    include '::openssl::params'
 
     ::openssl::tls_certificate { $cert_name:
         ensure       => $ensure,
