@@ -70,15 +70,15 @@
 
 define openssl::tls_certificate (
         Variant[Boolean, Enum['present', 'absent']] $ensure='present',
-        Optional[String[1]] $cert_content=undef,
-        String[1] $cert_name=$title,
-        String[1] $cert_path='/etc/pki/tls/certs',
-        Optional[String[1]] $cert_source=undef,
-        String[1] $group='root',
-        Optional[String[1]] $key_content=undef,
-        String[1] $key_path='/etc/pki/tls/private',
-        Optional[String[1]] $key_source=undef,
-        String[1] $owner='root',
+        Optional[String[1]]     $cert_content=undef,
+        String[1]               $cert_name=$title,
+        String[1]               $cert_path='/etc/pki/tls/certs',
+        Optional[String[1]]     $cert_source=undef,
+        String[1]               $group='root',
+        Optional[String[1]]     $key_content=undef,
+        String[1]               $key_path='/etc/pki/tls/private',
+        Optional[String[1]]     $key_source=undef,
+        String[1]               $owner='root',
     ) {
 
     include '::openssl'
