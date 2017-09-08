@@ -1,6 +1,6 @@
 # modules/openssl/manifests/tls_certificate.pp
 #
-# == Define: openssl::tls_ca_certificate
+# == Define: openssl::tls_certificate
 #
 # Manages a TLS certificate and private key file pair for OpenSSL.
 #
