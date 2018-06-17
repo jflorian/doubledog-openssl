@@ -20,6 +20,7 @@ define openssl::tls_certificate (
         String[1]               $cert_name=$title,
         String[1]               $cert_path='/etc/pki/tls/certs',
         Optional[String[1]]     $cert_source=undef,
+        Optional[String[1]]     $cert_suffix='.crt',
         String[1]               $group='root',
         Optional[String[1]]     $key_content=undef,
         String[1]               $key_path='/etc/pki/tls/private',
@@ -29,7 +30,7 @@ define openssl::tls_certificate (
 
     include '::openssl'
 
-    file { "${cert_path}/${cert_name}.crt":
+    file { "${cert_path}/${cert_name}${cert_suffix}":
         ensure    => $ensure,
         owner     => $owner,
         group     => $group,

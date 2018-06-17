@@ -97,6 +97,9 @@ File system path to where the certificate file is to be deployed.  Defaults to `
 ##### `cert_source`
 URI of the TLS certificate file content.  See *cert_content* for other important details.
 
+##### `cert_suffix`
+The suffix to be given to the TLS certificate file.  Defaults to `'.crt'`.
+
 ##### `ensure`
 Instance is to be `present` (default) or `absent`.  Alternatively, a Boolean value may also be used with `true` equivalent to `present` and `false` equivalent to `absent`.
 
