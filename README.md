@@ -42,6 +42,8 @@ This module lets you manage OpenSSL, primarily deployment of x509 certificates a
 
 **Defined types:**
 
+* [openssl::tls\_ca\_certificate](#openssltls\_ca\_certificate-defined-type)
+
 
 ### Classes
 
@@ -54,6 +56,25 @@ An array of package names needed for the OpenSSL installation.  The default shou
 
 
 ### Defined types
+
+#### openssl::tls\_ca\_certificate defined type
+
+This defined type manages a TLS CA certificate file.
+
+##### `namevar` (required)
+An arbitrary identifier for the TLS CA certificate instance unless the *cert_name* parameter is not set in which case this must provide the value normally set with the *cert_name* parameter.
+
+##### `cert_content`
+Literal content for the TLS CA certificate file.  If neither *cert_content* nor *cert_source* is given, the content of the file will be left unmanaged.
+
+##### `cert_name`
+Name to be given to the TLS CA certificate file, without any path details or file suffixes (e.g., `'.crt'`).  This may be used in place of *namevar* if it's beneficial to give *namevar* an arbitrary value.
+
+##### `cert_source`
+URI of the TLS CA certificate file content.  See *cert_content* for other important details.
+
+##### `ensure`
+Instance is to be `present` (default) or `absent`.  Alternatively, a Boolean value may also be used with `true` equivalent to `present` and `false` equivalent to `absent`.
 
 
 ## Limitations
