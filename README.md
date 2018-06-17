@@ -43,6 +43,7 @@ This module lets you manage OpenSSL, primarily deployment of x509 certificates a
 **Defined types:**
 
 * [openssl::tls\_ca\_certificate](#openssltls\_ca\_certificate-defined-type)
+* [openssl::tls\_certificate](#openssltls\_certificate-defined-type)
 
 
 ### Classes
@@ -75,6 +76,44 @@ URI of the TLS CA certificate file content.  See *cert_content* for other import
 
 ##### `ensure`
 Instance is to be `present` (default) or `absent`.  Alternatively, a Boolean value may also be used with `true` equivalent to `present` and `false` equivalent to `absent`.
+
+
+#### openssl::tls\_certificate defined type
+
+This defined type manages a TLS certificate and private key file pair.
+
+##### `namevar` (required)
+An arbitrary identifier for the TLS certificate/key pair instance unless the *cert_name* parameter is not set in which case this must provide the value normally set with the *cert_name* parameter.
+
+##### `cert_content`
+Literal content for the TLS certificate file.  If neither *cert_content* nor *cert_source* is given, the content of the file will be left unmanaged.
+
+##### `cert_name`
+The base name to be given to the TLS certificate and private key file pair, without any path details or file suffixes (e.g., `'.crt'`, `'.key'`).  This may be used in place of *namevar* if it's beneficial to give *namevar* an arbitrary value.  If given, this equally affects the private key file.
+
+##### `cert_path`
+File system path to where the certificate file is to be deployed.  Defaults to `'/etc/pki/tls/certs'`.
+
+##### `cert_source`
+URI of the TLS certificate file content.  See *cert_content* for other important details.
+
+##### `ensure`
+Instance is to be `present` (default) or `absent`.  Alternatively, a Boolean value may also be used with `true` equivalent to `present` and `false` equivalent to `absent`.
+
+##### `group`
+Group that is to own the certificate and key files.  Defaults to `'root'`.
+
+##### `key_content`
+Literal content for the TLS private key file.  One of *key_content* or *key_source* must be given if the private key file is to exist.  If neither are set, any existing file will be removed.
+
+##### `key_path`
+File system path to where the private key file is to be deployed.  Defaults to `'/etc/pki/tls/private'`.
+
+##### `key_source`
+URI of the TLS private key file content.  See *key_content* for other important details.
+
+##### `owner`
+User that is to own the certificate and key files.  Defaults to `'root'`.
 
 
 ## Limitations
