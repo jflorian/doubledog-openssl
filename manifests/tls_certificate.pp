@@ -25,6 +25,7 @@ define openssl::tls_certificate (
         Optional[String[1]]     $key_content=undef,
         String[1]               $key_path='/etc/pki/tls/private',
         Optional[String[1]]     $key_source=undef,
+        Optional[String[1]]     $key_suffix='.key',
         String[1]               $owner='root',
     ) {
 
@@ -44,7 +45,7 @@ define openssl::tls_certificate (
     }
 
     if $key_content != undef or $key_source != undef {
-        file { "${key_path}/${name}.key":
+        file { "${key_path}/${name}${key_suffix}":
             ensure    => $ensure,
             owner     => $owner,
             group     => $group,
@@ -58,7 +59,7 @@ define openssl::tls_certificate (
             show_diff => false,
         }
     } else {
-        file { "${key_path}/${name}.key":
+        file { "${key_path}/${name}${key_suffix}":
             ensure => absent,
         }
     }

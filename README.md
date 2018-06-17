@@ -115,6 +115,9 @@ File system path to where the private key file is to be deployed.  Defaults to `
 ##### `key_source`
 URI of the TLS private key file content.  See *key_content* for other important details.
 
+##### `key_suffix`
+The suffix to be given to the TLS private key file.  Defaults to `'.key'`.
+
 ##### `owner`
 User that is to own the certificate and key files.  Defaults to `'root'`.
 
