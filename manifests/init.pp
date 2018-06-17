@@ -1,17 +1,7 @@
-# modules/openssl/manifests/init.pp
 #
 # == Class: openssl
 #
 # Manages OpenSSL.
-#
-# === Parameters
-#
-# ==== Required
-#
-# ==== Optional
-#
-# [*packages*]
-#   An array of package names needed for the OpenSSL installation.
 #
 # === Authors
 #
@@ -19,13 +9,14 @@
 #
 # === Copyright
 #
-# Copyright 2010-2017 John Florian
+# This file is part of the doubledog-openssl Puppet module.
+# Copyright 2010-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 class openssl (
         Array[String]           $packages,
     ) {
-
 
     package { $packages:
         ensure => installed,

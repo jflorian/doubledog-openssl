@@ -38,10 +38,19 @@ This module lets you manage OpenSSL, primarily deployment of x509 certificates a
 
 **Classes:**
 
+* [openssl](#openssl-class)
+
 **Defined types:**
 
 
 ### Classes
+
+#### openssl class
+
+This class manages the basic OpenSSL installation.  It is generally not necessary to include this class directly, unless you want OpenSSL installed but don't plan to manage any certificates with this module.
+
+##### `packages`
+An array of package names needed for the OpenSSL installation.  The default should be correct for supported platforms.
 
 
 ### Defined types
