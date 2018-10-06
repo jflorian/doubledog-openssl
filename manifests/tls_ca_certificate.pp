@@ -15,7 +15,7 @@
 
 
 define openssl::tls_ca_certificate (
-        Variant[Boolean, Enum['present', 'absent']] $ensure='present',
+        Ddolib::File::Ensure    $ensure='present',
         Optional[String[1]]     $cert_content=undef,
         String[1]               $cert_name=$title,
         Optional[String[1]]     $cert_source=undef,
