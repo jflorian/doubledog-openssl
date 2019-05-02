@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-openssl Puppet module.
-# Copyright 2010-2018 John Florian
+# Copyright 2010-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -29,7 +29,7 @@ define openssl::tls_certificate (
         String[1]               $owner='root',
     ) {
 
-    include '::openssl'
+    include 'openssl'
 
     file { "${cert_path}/${cert_name}${cert_suffix}":
         ensure    => $ensure,
@@ -39,7 +39,7 @@ define openssl::tls_certificate (
         seluser   => 'system_u',
         selrole   => 'object_r',
         seltype   => 'cert_t',
-        subscribe => Package[$::openssl::packages],
+        subscribe => Package[$openssl::packages],
         content   => $cert_content,
         source    => $cert_source,
     }
@@ -53,7 +53,7 @@ define openssl::tls_certificate (
             seluser   => 'system_u',
             selrole   => 'object_r',
             seltype   => 'cert_t',
-            subscribe => Package[$::openssl::packages],
+            subscribe => Package[$openssl::packages],
             content   => $key_content,
             source    => $key_source,
             show_diff => false,

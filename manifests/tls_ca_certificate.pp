@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-openssl Puppet module.
-# Copyright 2010-2018 John Florian
+# Copyright 2010-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -21,9 +21,9 @@ define openssl::tls_ca_certificate (
         Optional[String[1]]     $cert_source=undef,
     ) {
 
-    include '::openssl'
+    include 'openssl'
 
-    ::openssl::tls_certificate { $cert_name:
+    openssl::tls_certificate { $cert_name:
         ensure       => $ensure,
         cert_path    => '/etc/pki/ca-trust/source/anchors',
         cert_content => $cert_content,
