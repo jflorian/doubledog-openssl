@@ -1,7 +1,7 @@
 <!--
-# This file is part of the doubledog-openssl Puppet module.
-# Copyright 2018 John Florian
-# SPDX-License-Identifier: GPL-3.0-or-later
+This file is part of the doubledog-openssl Puppet module.
+Copyright 2018-2019 John Florian
+SPDX-License-Identifier: GPL-3.0-or-later
 
 Template
 
@@ -18,6 +18,15 @@ Template
 # Change log
 
 All notable changes to this project (since v1.2.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
+
+## [1.3.0] WIP
+### Added
+### Changed
+### Deprecated
+### Removed
+- Fedora 26 support
+### Fixed
+### Security
 
 ## [1.2.0 and prior] 2018-12-15
 
